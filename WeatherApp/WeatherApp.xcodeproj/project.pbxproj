@@ -16,7 +16,7 @@
 		C49B17442A9CA1B800B1A1E8 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49B17432A9CA1B800B1A1E8 /* ViewModel.swift */; };
 		C49B17472A9CA22A00B1A1E8 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = C49B17462A9CA22A00B1A1E8 /* Alamofire */; };
 		C49B174A2A9CB22600B1A1E8 /* HomeExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49B17492A9CB22500B1A1E8 /* HomeExtensions.swift */; };
-		C49B174D2A9CE46900B1A1E8 /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49B174C2A9CE46900B1A1E8 /* CustomTableViewCell.swift */; };
+		C49B174D2A9CE46900B1A1E8 /* CustomHorizontalCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49B174C2A9CE46900B1A1E8 /* CustomHorizontalCardView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,7 +30,7 @@
 		C49B17412A9CA18000B1A1E8 /* WeatherModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherModel.swift; sourceTree = "<group>"; };
 		C49B17432A9CA1B800B1A1E8 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		C49B17492A9CB22500B1A1E8 /* HomeExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeExtensions.swift; sourceTree = "<group>"; };
-		C49B174C2A9CE46900B1A1E8 /* CustomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
+		C49B174C2A9CE46900B1A1E8 /* CustomHorizontalCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomHorizontalCardView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,7 +105,7 @@
 			children = (
 				C49B173E2A9C8EB000B1A1E8 /* HomeViewController.swift */,
 				C49B17492A9CB22500B1A1E8 /* HomeExtensions.swift */,
-				C49B174C2A9CE46900B1A1E8 /* CustomTableViewCell.swift */,
+				C49B174C2A9CE46900B1A1E8 /* CustomHorizontalCardView.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -189,7 +189,7 @@
 				C49B174A2A9CB22600B1A1E8 /* HomeExtensions.swift in Sources */,
 				C49B17442A9CA1B800B1A1E8 /* ViewModel.swift in Sources */,
 				C49B17292A9C8B4000B1A1E8 /* AppDelegate.swift in Sources */,
-				C49B174D2A9CE46900B1A1E8 /* CustomTableViewCell.swift in Sources */,
+				C49B174D2A9CE46900B1A1E8 /* CustomHorizontalCardView.swift in Sources */,
 				C49B172B2A9C8B4000B1A1E8 /* SceneDelegate.swift in Sources */,
 				C49B173F2A9C8EB000B1A1E8 /* HomeViewController.swift in Sources */,
 				C49B17422A9CA18000B1A1E8 /* WeatherModel.swift in Sources */,

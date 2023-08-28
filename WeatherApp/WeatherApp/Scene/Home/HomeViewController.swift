@@ -10,7 +10,7 @@ import UIKit
 import CoreLocation
 
 
-class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate{
+class HomeViewController: UIViewController{
   
     
     
@@ -112,17 +112,32 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     
     
+    // card
+    private let titleLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 16, weight: .bold)
+        label.textColor = .black
+        return label
+    }()
+
+    private let valueLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 14)
+        label.textColor = .darkGray
+        return label
+    }()
+
+    private let iconImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFit
+        return imageView
+    }()
+    
+    
+    
     // Weather Model
     let weather : [Weather] = []
-    // custom table
-    private let tableView : UITableView = {
-        let table = UITableView()
-        table.backgroundColor = nil
-        table.isScrollEnabled = false
-        table.isUserInteractionEnabled = false
-        table.frame = .zero
-        return table
-    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -153,14 +168,17 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         degreeStackView.addArrangedSubview(celcLabel)
         degreeStackView.addArrangedSubview(degreeLabel)
         degreeStackView.addArrangedSubview(weatherStatusLabel)
-        
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(tableView)
-        
+               
         
         todayMainStackView.addArrangedSubview(weatherImage)
         todayMainStackView.addArrangedSubview(degreeStackView)
         
+        
+        // Info  Cards
+        
+        let card = HorizontalCardView(icon: UIImage(named: "humidity.png")!, title: "Nem", value: "12%")
+        card.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(card)
         
         // View'a ekle
         view.addSubview(cityLabel)
@@ -195,19 +213,17 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
             
             celcLabel.rightAnchor.constraint(equalTo: degreeLabel.rightAnchor, constant: 10),
             
-            // tableview
             
-            tableView.topAnchor.constraint(equalTo: todayMainStackView.bottomAnchor),
+            // Cards
             
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-            
-            
+            card.topAnchor.constraint(equalTo: todayMainStackView.bottomAnchor, constant: 20),
+             //card.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            card.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            card.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            card.heightAnchor.constraint(equalToConstant: 75)
         ])
-        tableView.dataSource = self
-        tableView.delegate = self
-        tableView.register(CustomTableViewCell.self, forCellReuseIdentifier: "CustomCell")
+        
+        
     }
     func getData(city : String)
     {
@@ -228,20 +244,6 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
     }
     
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "CustomCell", for: indexPath) as! CustomTableViewCell
-        
-        // Özel hücre içeriğini doldurabilirsiniz
-        cell.titleLabel.text = "Başlık \(indexPath.row)"
-        cell.subtitleLabel.text = "Alt başlık \(indexPath.row)"
-        cell.backgroundColor = .systemMint
-       
-        return cell
-    }
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
-    }
 }
     
     
