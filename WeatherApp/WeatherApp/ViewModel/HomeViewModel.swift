@@ -9,8 +9,7 @@ import Foundation
 import Alamofire
 
 
-class WeatherViewModel {
-    
+class HomeViewModel {
     
     func getWeatherData(city: String,  completion: @escaping ([Result]?,Error?) -> Void) {
         let url = URL(string: "https://api.collectapi.com/weather/getWeather?data.lang=tr&data.city=\(city)")!
@@ -37,10 +36,6 @@ class WeatherViewModel {
             }
         }
     }
-
-
     
 }
-
-
 

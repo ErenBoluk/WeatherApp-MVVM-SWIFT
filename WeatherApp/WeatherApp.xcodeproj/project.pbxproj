@@ -13,10 +13,14 @@
 		C49B17352A9C8B4100B1A1E8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C49B17332A9C8B4100B1A1E8 /* LaunchScreen.storyboard */; };
 		C49B173F2A9C8EB000B1A1E8 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49B173E2A9C8EB000B1A1E8 /* HomeViewController.swift */; };
 		C49B17422A9CA18000B1A1E8 /* WeatherModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49B17412A9CA18000B1A1E8 /* WeatherModel.swift */; };
-		C49B17442A9CA1B800B1A1E8 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49B17432A9CA1B800B1A1E8 /* ViewModel.swift */; };
+		C49B17442A9CA1B800B1A1E8 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49B17432A9CA1B800B1A1E8 /* HomeViewModel.swift */; };
 		C49B17472A9CA22A00B1A1E8 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = C49B17462A9CA22A00B1A1E8 /* Alamofire */; };
 		C49B174A2A9CB22600B1A1E8 /* HomeExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49B17492A9CB22500B1A1E8 /* HomeExtensions.swift */; };
 		C49B174D2A9CE46900B1A1E8 /* CustomHorizontalCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49B174C2A9CE46900B1A1E8 /* CustomHorizontalCardView.swift */; };
+		C4B9EBD62A9DEC8200B66033 /* CustomUICollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B9EBD52A9DEC8200B66033 /* CustomUICollectionViewCell.swift */; };
+		C4B9EBD92A9E523300B66033 /* UIColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B9EBD82A9E523300B66033 /* UIColorExtensions.swift */; };
+		C4B9EBDB2A9E543100B66033 /* CustomUICollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B9EBDA2A9E543100B66033 /* CustomUICollectionView.swift */; };
+		C4B9EBDD2A9E582A00B66033 /* HomeVCFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B9EBDC2A9E582A00B66033 /* HomeVCFactory.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,9 +32,13 @@
 		C49B17362A9C8B4100B1A1E8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C49B173E2A9C8EB000B1A1E8 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		C49B17412A9CA18000B1A1E8 /* WeatherModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherModel.swift; sourceTree = "<group>"; };
-		C49B17432A9CA1B800B1A1E8 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
+		C49B17432A9CA1B800B1A1E8 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		C49B17492A9CB22500B1A1E8 /* HomeExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeExtensions.swift; sourceTree = "<group>"; };
 		C49B174C2A9CE46900B1A1E8 /* CustomHorizontalCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomHorizontalCardView.swift; sourceTree = "<group>"; };
+		C4B9EBD52A9DEC8200B66033 /* CustomUICollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUICollectionViewCell.swift; sourceTree = "<group>"; };
+		C4B9EBD82A9E523300B66033 /* UIColorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtensions.swift; sourceTree = "<group>"; };
+		C4B9EBDA2A9E543100B66033 /* CustomUICollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUICollectionView.swift; sourceTree = "<group>"; };
+		C4B9EBDC2A9E582A00B66033 /* HomeVCFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HomeVCFactory.swift; path = ../../../../../../../Documents/HomeVCFactory.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,13 +72,13 @@
 		C49B17272A9C8B4000B1A1E8 /* WeatherApp */ = {
 			isa = PBXGroup;
 			children = (
+				C4B9EBD72A9E292000B66033 /* ViewModel */,
 				C49B17402A9CA16F00B1A1E8 /* Model */,
 				C49B173D2A9C8E5400B1A1E8 /* App */,
 				C49B173C2A9C8E4400B1A1E8 /* Scene */,
 				C49B17312A9C8B4100B1A1E8 /* Assets.xcassets */,
 				C49B17332A9C8B4100B1A1E8 /* LaunchScreen.storyboard */,
 				C49B17362A9C8B4100B1A1E8 /* Info.plist */,
-				C49B17432A9CA1B800B1A1E8 /* ViewModel.swift */,
 			);
 			path = WeatherApp;
 			sourceTree = "<group>";
@@ -79,6 +87,7 @@
 			isa = PBXGroup;
 			children = (
 				C49B17482A9CB21500B1A1E8 /* Home */,
+				C4B9EBD82A9E523300B66033 /* UIColorExtensions.swift */,
 			);
 			path = Scene;
 			sourceTree = "<group>";
@@ -103,11 +112,22 @@
 		C49B17482A9CB21500B1A1E8 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				C4B9EBDC2A9E582A00B66033 /* HomeVCFactory.swift */,
 				C49B173E2A9C8EB000B1A1E8 /* HomeViewController.swift */,
 				C49B17492A9CB22500B1A1E8 /* HomeExtensions.swift */,
 				C49B174C2A9CE46900B1A1E8 /* CustomHorizontalCardView.swift */,
+				C4B9EBD52A9DEC8200B66033 /* CustomUICollectionViewCell.swift */,
+				C4B9EBDA2A9E543100B66033 /* CustomUICollectionView.swift */,
 			);
 			path = Home;
+			sourceTree = "<group>";
+		};
+		C4B9EBD72A9E292000B66033 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				C49B17432A9CA1B800B1A1E8 /* HomeViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -186,13 +206,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C4B9EBD92A9E523300B66033 /* UIColorExtensions.swift in Sources */,
 				C49B174A2A9CB22600B1A1E8 /* HomeExtensions.swift in Sources */,
-				C49B17442A9CA1B800B1A1E8 /* ViewModel.swift in Sources */,
+				C4B9EBDB2A9E543100B66033 /* CustomUICollectionView.swift in Sources */,
+				C49B17442A9CA1B800B1A1E8 /* HomeViewModel.swift in Sources */,
 				C49B17292A9C8B4000B1A1E8 /* AppDelegate.swift in Sources */,
+				C4B9EBDD2A9E582A00B66033 /* HomeVCFactory.swift in Sources */,
 				C49B174D2A9CE46900B1A1E8 /* CustomHorizontalCardView.swift in Sources */,
 				C49B172B2A9C8B4000B1A1E8 /* SceneDelegate.swift in Sources */,
 				C49B173F2A9C8EB000B1A1E8 /* HomeViewController.swift in Sources */,
 				C49B17422A9CA18000B1A1E8 /* WeatherModel.swift in Sources */,
+				C4B9EBD62A9DEC8200B66033 /* CustomUICollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

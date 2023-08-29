@@ -2,7 +2,6 @@ import UIKit
 import CoreLocation
 
 extension HomeViewController: CLLocationManagerDelegate {
-    
     override func viewDidAppear(_ animated: Bool) {
         determineCurrentLocation()
     }

@@ -33,9 +33,9 @@ class HorizontalCardView: UIView {
         super.init(frame: .zero)
         
         backgroundColor = .init(white: 1, alpha: 0.5)
-        layer.cornerRadius = 10
+        layer.cornerRadius = 15 
         layer.borderWidth = 1
-        layer.borderColor =  UIColor.white.cgColor
+        layer.borderColor =  CGColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 0.7)
         
         iconImageView.image = icon
         titleLabel.text = title
@@ -53,10 +53,10 @@ class HorizontalCardView: UIView {
         NSLayoutConstraint.activate([
             iconImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             iconImageView.centerYAnchor.constraint(equalTo: centerYAnchor),
-            iconImageView.widthAnchor.constraint(equalToConstant: 50),
-            iconImageView.heightAnchor.constraint(equalToConstant: 50),
+            iconImageView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 1/7),
+            iconImageView.heightAnchor.constraint(equalTo: widthAnchor, multiplier: 1/7),
             
-            valueLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -25),
+            valueLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
             valueLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
             
             titleLabel.leadingAnchor.constraint(equalTo: iconImageView.trailingAnchor, constant: 16),

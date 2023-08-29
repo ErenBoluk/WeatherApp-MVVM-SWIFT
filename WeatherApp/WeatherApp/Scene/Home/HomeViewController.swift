@@ -22,24 +22,24 @@ class HomeViewController: UIViewController{
     var usersLocation = ""
     var userCurrentCity = ""
     
+    private let cityLabel = setCustomLabel(text: "Location", color: AppColor.base.color,fSize: 50)
     
-    private let cityLabel : UILabel = {
-        let label = UILabel()
-        
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Location"
-        label.font = .systemFont(ofSize: 50,weight: .regular)
-        label.textColor = UIColor(red: 49/255, green: 51/255, blue: 65/255, alpha: 1)
-        return label
-    }()
-    private let dateLabel : UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Paz, Jun 30"
-        label.font = .systemFont(ofSize: 20 ,weight: .regular)
-        label.textColor = UIColor(red: 154/255, green: 147/255, blue: 140/255, alpha: 1)
-        return label
-    }()
+    
+    
+    private let dateLabel = setCustomLabel(text: "Paz, Jun 30", color: AppColor.secondary.color, fSize: 20)
+    
+    
+    private let degreeLabel = setCustomLabel(text: "32", color: AppColor.base.color,fSize: 75, weight: .medium)
+    private let weatherStatusLabel = setCustomLabel(text: "Cloudy", color: AppColor.base.color,fSize: 20)
+    
+    private let celcLabel = setCustomLabel(text: "\u{00B0}C", color: AppColor.base.color,fSize: 20, align: .right)
+    
+    // card
+    private let titleLabel = setCustomLabel(text: "", color: AppColor.base.color,fSize: 16, weight: .bold)
+    
+    private let valueLabel = setCustomLabel(text: "", color: AppColor.base.color,fSize: 14, weight: .bold)
+
+    
     
     private let weatherImage : UIImageView = {
         let image = UIImageView()
@@ -47,37 +47,6 @@ class HomeViewController: UIViewController{
         image.image = UIImage(named: "cloudy.png")
         // image.backgroundColor = .systemPink
         return image
-    }()
-    private let degreeLabel : UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "30"
-        label.font = .systemFont(ofSize: 75 ,weight: .medium)
-        label.textAlignment = .center
-        // label.backgroundColor = .systemGray
-        label.textColor = UIColor(red: 49/255, green: 51/255, blue: 65/255, alpha: 1)
-        
-        return label
-    }()
-    private let weatherStatusLabel : UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.textAlignment = .center
-        
-        label.text = "Cloudy"
-        label.font = .systemFont(ofSize: 20 ,weight: .regular)
-        label.textColor = UIColor(red: 49/255, green: 51/255, blue: 65/255, alpha: 1)
-        return label
-    }()
-    
-    private let celcLabel : UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.textAlignment = .right
-        label.text = "\u{00B0}C"
-        label.font = .systemFont(ofSize: 20 ,weight: .regular)
-        label.textColor = UIColor(red: 49/255, green: 51/255, blue: 65/255, alpha: 1)
-        return label
     }()
     
     private let todayMainStackView : UIStackView = {
@@ -110,58 +79,45 @@ class HomeViewController: UIViewController{
         
     }()
     
-    
-    
-    // card
-    private let titleLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 16, weight: .bold)
-        label.textColor = .black
-        return label
-    }()
-
-    private let valueLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 14)
-        label.textColor = .darkGray
-        return label
-    }()
-
     private let iconImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
     
+    private let lineView : UIView = {
+        let line = UIView()
+        line.translatesAutoresizingMaskIntoConstraints = false // Otomatik kontraintleri devre dışı bırak
+        line.backgroundColor = UIColor(red: 154/255, green: 147/255, blue: 140/255, alpha: 1)
+        
+        return line
+    }()
     
+    var collectionView = setCustomCollectionView()
+    
+
     
     // Weather Model
-    let weather : [Weather] = []
+    var weather : [Result] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         
-        // Gradient renkleri
-       let startColor = UIColor(red: 254/255, green: 226/255, blue: 198/255, alpha: 1).cgColor
-       let endColor = UIColor(red: 254/255, green: 189/255, blue: 139/255, alpha: 1).cgColor
-       
-       // Gradient katmanını oluştur
-       let gradientLayer = CAGradientLayer()
-       gradientLayer.colors = [startColor, endColor]
-       
-    
-        // Gradient'in başlangıç ve bitiş noktalarını belirle (135 derece)
+        
+        // TODO: UIColor+Extension yaz buna
+        
+        
+        let startColor = UIColor(hex: "#FEE2C6")
+        let endColor = UIColor(hex: "#FEBD8B")
+        
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.colors = [startColor.cgColor, endColor.cgColor]
         gradientLayer.startPoint = CGPoint(x: 0, y: 0)
         gradientLayer.endPoint = CGPoint(x: 1, y: 1)
-       
-       // Gradient katmanının boyutunu ayarla (örneğin, tüm ekranı kaplamak için)
-       gradientLayer.frame = view.bounds
-       
-       // Gradient katmanını arka plana ekle
-       view.layer.insertSublayer(gradientLayer, at: 0)
-
+        gradientLayer.frame = view.bounds
         
+        view.layer.insertSublayer(gradientLayer, at: 0)
         
         // Görüntüleri StackView'e ekle
         
@@ -176,37 +132,53 @@ class HomeViewController: UIViewController{
         
         // Info  Cards
         
-        let card = HorizontalCardView(icon: UIImage(named: "humidity.png")!, title: "Nem", value: "12%")
-        card.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(card)
+        let humidityCard = HorizontalCardView(icon: UIImage(named: "humidity.png")!, title: "Nem", value: "12%")
+        humidityCard.translatesAutoresizingMaskIntoConstraints = false
+        let nightCard = HorizontalCardView(icon: UIImage(named: "night.png")!, title: "Gece", value: "20\u{00B0}C")
+        nightCard.translatesAutoresizingMaskIntoConstraints = false
+        let avgCard = HorizontalCardView(icon: UIImage(named: "avg-degree.png")!, title: "Ortalama", value: "10\u{00B0}C")
+        avgCard.translatesAutoresizingMaskIntoConstraints = false
+        
+        
+        view.addSubview(humidityCard)
+        view.addSubview(nightCard)
+        view.addSubview(avgCard)
         
         // View'a ekle
         view.addSubview(cityLabel)
         view.addSubview(dateLabel)
         view.addSubview(todayMainStackView)
+        view.addSubview(lineView)
+        view.addSubview(collectionView)
+        
         let safe = view.safeAreaLayoutGuide
         let mainAnchorW = view.widthAnchor
-        let mainAnchorH = view.heightAnchor
+        // let mainAnchorH = view.heightAnchor
         
         let mainW = view.frame.width
-        let mainH = view.frame.height
+        // let mainH = view.frame.height
+        
+        //TODO: ViewDidLoad içini bu kadar doldurma. Fonksiyonalara ayır. fonksiyonaları orada call et.
         
         NSLayoutConstraint.activate([
             // CityLabel
-            cityLabel.topAnchor.constraint(equalTo: safe.topAnchor, constant: 10),
-            cityLabel.leadingAnchor.constraint(equalToSystemSpacingAfter: safe.leadingAnchor, multiplier: 5),
+            cityLabel.topAnchor.constraint(equalTo: safe.topAnchor, constant: 0),
+            cityLabel.leadingAnchor.constraint(equalTo: safe.leadingAnchor , constant: 40),
+            cityLabel.trailingAnchor.constraint(equalTo: safe.trailingAnchor , constant: -40),
             //DateLabel
             dateLabel.topAnchor.constraint(equalTo: cityLabel.bottomAnchor, constant: 4),
-            dateLabel.leadingAnchor.constraint(equalToSystemSpacingAfter: safe.leadingAnchor, multiplier: 5),
+            
+            dateLabel.leadingAnchor.constraint(equalTo: safe.leadingAnchor , constant: 40),
+            dateLabel.trailingAnchor.constraint(equalTo: safe.trailingAnchor , constant: -40),
 
-            weatherImage.widthAnchor.constraint(equalTo: mainAnchorW, multiplier: 1/2.1),
-            weatherImage.heightAnchor.constraint(equalTo: mainAnchorW, multiplier: 1/2.1),
+            weatherImage.widthAnchor.constraint(equalTo: mainAnchorW, multiplier: 1/3),
+            weatherImage.heightAnchor.constraint(equalTo: mainAnchorW, multiplier: 1/3),
 
             
             todayMainStackView.topAnchor.constraint(equalTo: dateLabel.bottomAnchor,constant: 15),
             todayMainStackView.centerXAnchor.constraint(equalTo: safe.leadingAnchor,constant: mainW / 2 - 10),
             
-            degreeLabel.heightAnchor.constraint(equalTo: todayMainStackView.heightAnchor, multiplier: 1/3.2),
+            degreeLabel.heightAnchor.constraint(equalTo: todayMainStackView.heightAnchor, multiplier: 1/2),
             
             weatherStatusLabel.heightAnchor.constraint(equalTo: todayMainStackView.heightAnchor, multiplier: 1/4),
             weatherStatusLabel.topAnchor.constraint(equalTo: degreeLabel.bottomAnchor, constant: 10),
@@ -216,31 +188,56 @@ class HomeViewController: UIViewController{
             
             // Cards
             
-            card.topAnchor.constraint(equalTo: todayMainStackView.bottomAnchor, constant: 20),
+            humidityCard.topAnchor.constraint(equalTo: todayMainStackView.bottomAnchor, constant: 20),
              //card.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            card.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            card.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            card.heightAnchor.constraint(equalToConstant: 75)
+            humidityCard.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            humidityCard.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            humidityCard.heightAnchor.constraint(equalTo: safe.heightAnchor, multiplier: 1/10),
+            
+            nightCard.topAnchor.constraint(equalTo: humidityCard.bottomAnchor, constant: 10),
+            nightCard.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            nightCard.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            nightCard.heightAnchor.constraint(equalTo: safe.heightAnchor, multiplier: 1/10),
+            
+            avgCard.topAnchor.constraint(equalTo: nightCard.bottomAnchor, constant: 10),
+            avgCard.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            avgCard.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            avgCard.heightAnchor.constraint(equalTo: safe.heightAnchor, multiplier: 1/10),
+            
+            
+            // line
+            lineView.leadingAnchor.constraint(equalTo: safe.leadingAnchor, constant: 30),
+            lineView.trailingAnchor.constraint(equalTo: safe.trailingAnchor, constant:  -30),
+            lineView.heightAnchor.constraint(equalToConstant: 1),
+            lineView.topAnchor.constraint(equalTo: avgCard.bottomAnchor, constant: 20),
+            
+            
+            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            collectionView.topAnchor.constraint(equalTo: lineView.bottomAnchor, constant: 10),
+            collectionView.bottomAnchor.constraint(equalTo: lineView.bottomAnchor, constant: 125)
+            
+            // collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            
         ])
-        
-        
     }
+    
+    //TODO: Business logic view model den gelsin.
     func getData(city : String)
     {
-        /*
-         WeatherViewModel().getWeatherData(city: city) { data,error in
+        
+         HomeViewModel().getWeatherData(city: city) { data,error in
              if let error = error {
                  print("error: \(error.localizedDescription)")
              } else {
                  guard var data = data else {return}
                  
-                 // data
-                 print(data)
+                 self.weather = data
                  
              }
          }
-         e
-         */
+         
+         
         
     }
     
