@@ -17,7 +17,7 @@ Bu uygulama, <b> MVVM Mimarisini  </b> kullanarak Alamofire Kütüphanesini kull
 ## Gündüz / Gece               
 >  Sunday / Night
 
-<img src="https://i.hizliresim.com/masqnk4.png" width="250"> <img src="https://i.hizliresim.com/g8l4aqp.png" width="250">
+<img src="https://i.hizliresim.com/l0fr0cs.png" width="250"> <img src="https://i.hizliresim.com/5nut5k5.png" width="250">
 
 
 
