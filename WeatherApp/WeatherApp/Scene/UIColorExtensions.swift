@@ -25,7 +25,7 @@ enum AppColor {
     case secondGradient
     
     var color: UIColor {
-        let night = !isNightTime()
+        let night = isNightTime()
         switch self {
         case .base:
             return night ? UIColor(hex: "#FFFFFF") : UIColor(hex: "#303345")
