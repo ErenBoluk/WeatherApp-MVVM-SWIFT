@@ -261,7 +261,7 @@ class HomeViewController: UIViewController{
         self.humidityCard.update(title: "Nem", value: "\(today.humidity)%")
         self.nightCard.update(title: "Gece", value: "\(today.night.prefix(4)) \u{00B0}C")
         let avg = ( Float(today.max )! + Float(today.min)!) / 2
-        self.avgCard.update(title: "Gece", value: "\(String(avg).prefix(4))\u{00B0}C")
+        self.avgCard.update(title: "Ortalama", value: "\(String(avg).prefix(4))\u{00B0}C")
         
         
         
