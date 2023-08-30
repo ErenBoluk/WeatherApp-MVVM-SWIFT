@@ -10,7 +10,7 @@ class CustomCell: UICollectionViewCell {
         
     }()
     
-    let degreeLabel =  setCustomLabel(text: "", color: .black, fSize: 14, weight: .medium, align: .center)
+    let degreeLabel =  setCustomLabel(text: "", color: AppColor.base.color, fSize: 14, weight: .medium, align: .center)
     let  dayLabel =  setCustomLabel(text: "Cmt", color: AppColor.secondary.color, fSize: 14, weight: .regular, align: .center)
     
    
@@ -57,9 +57,42 @@ class CustomCell: UICollectionViewCell {
     
     
     
-   
+    func getImage(status: String) -> UIImage {
+        let img : UIImage
+        switch status {
+        case "Clear":
+            img = UIImage(named: "sun-min.png")!
+            
+            case "Clouds":
+                img = UIImage(named: "cloud-min.png")!
+            
+            case "Rain":
+                img = UIImage(named: "rain-min.png")!
+            
+        default:
+            img = UIImage(named: "cloudy-min.png")!
+        }
+        return img
+    }
     
-    func configure(with title: String) {
-        degreeLabel.text = title
+    func configure(with data: Result) {
+        
+        dayLabel.text = isDateToday(dateString: data.date) ? "Bugün" : String(data.day.prefix(3))
+        degreeLabel.text = "\(data.degree.prefix(2))\u{00B0}"
+        imageView.image = getImage(status: data.status)
+        
+    }
+    func isDateToday(dateString: String) -> Bool {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd.MM.yyyy"
+        
+        if let date = dateFormatter.date(from: dateString) {
+            let today = Date()
+            let calendar = Calendar.current
+            
+            return calendar.isDate(date, inSameDayAs: today)
+        }
+        
+        return false
     }
 }

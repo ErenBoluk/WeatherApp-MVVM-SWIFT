@@ -95,21 +95,30 @@ class HomeViewController: UIViewController{
     
     var collectionView = setCustomCollectionView()
     
+    let humidityCard = HorizontalCardView(icon: UIImage(named: "humidity.png")!, title: "Nem", value: "12%")
+    
+    
+    let nightCard = HorizontalCardView(icon: UIImage(named: "night.png")!, title: "Gece", value: "20\u{00B0}C")
+    
+    let avgCard = HorizontalCardView(icon: UIImage(named: "avg-degree.png")!, title: "Ortalama", value: "10\u{00B0}C")
+    
+    
 
     
     // Weather Model
-    var weather : [Result] = []
+    var weatherData : [Result] = []
+    
+    var todayData : Result?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
+        getData(city: userCurrentCity)
         
         // TODO: UIColor+Extension yaz buna
         
-        
-        let startColor = UIColor(hex: "#FEE2C6")
-        let endColor = UIColor(hex: "#FEBD8B")
+        let startColor = AppColor.firstGradient.color
+        let endColor = AppColor.secondGradient.color
         
         let gradientLayer = CAGradientLayer()
         gradientLayer.colors = [startColor.cgColor, endColor.cgColor]
@@ -131,14 +140,7 @@ class HomeViewController: UIViewController{
         
         
         // Info  Cards
-        
-        let humidityCard = HorizontalCardView(icon: UIImage(named: "humidity.png")!, title: "Nem", value: "12%")
-        humidityCard.translatesAutoresizingMaskIntoConstraints = false
-        let nightCard = HorizontalCardView(icon: UIImage(named: "night.png")!, title: "Gece", value: "20\u{00B0}C")
-        nightCard.translatesAutoresizingMaskIntoConstraints = false
-        let avgCard = HorizontalCardView(icon: UIImage(named: "avg-degree.png")!, title: "Ortalama", value: "10\u{00B0}C")
-        avgCard.translatesAutoresizingMaskIntoConstraints = false
-        
+       
         
         view.addSubview(humidityCard)
         view.addSubview(nightCard)
@@ -230,10 +232,11 @@ class HomeViewController: UIViewController{
              if let error = error {
                  print("error: \(error.localizedDescription)")
              } else {
-                 guard var data = data else {return}
+                 guard let data = data else {return}
                  
-                 self.weather = data
-                 
+                 self.weatherData = data
+                 self.todayData = data[0]
+                 self.setDatas()
              }
          }
          
@@ -241,6 +244,61 @@ class HomeViewController: UIViewController{
         
     }
     
+    func setDatas()  {
+        
+        guard let today = self.todayData  else {
+            return
+        }
+        
+        
+        print(today)
+        self.degreeLabel.text = String(today.degree.prefix(2))
+        self.cityLabel.text = self.userCurrentCity.capitalized
+        self.weatherStatusLabel.text = today.description.capitalized
+        self.dateLabel.text = convertDateFormat(inputDateString: today.date, from: "dd.MM.yyyy", to: "E, MMM d")
+        self.weatherImage.image = self.getWeatherImage(status: today.status)
+        
+        self.humidityCard.update(title: "Nem", value: "\(today.humidity)%")
+        self.nightCard.update(title: "Gece", value: "\(today.night.prefix(4)) \u{00B0}C")
+        let avg = ( Float(today.max )! + Float(today.min)!) / 2
+        self.avgCard.update(title: "Gece", value: "\(String(avg).prefix(4))\u{00B0}C")
+        
+        
+        
+        
+        self.collectionView.cellData = self.weatherData
+        self.collectionView.reloadData()
+    }
+    func convertDateFormat(inputDateString: String, from inputFormat: String, to outputFormat: String) -> String? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = inputFormat
+        
+        if let date = dateFormatter.date(from: inputDateString) {
+            dateFormatter.dateFormat = outputFormat
+            return dateFormatter.string(from: date)
+        }
+        
+        return nil
+    }
+
+   
+    func getWeatherImage(status: String) -> UIImage {
+        let img : UIImage
+        switch status {
+        case "Clear":
+            img = UIImage(named: "sun-min.png")!
+            
+            case "Clouds":
+                img = UIImage(named: "cloud-min.png")!
+            
+            case "Rain":
+                img = UIImage(named: "rain-min.png")!
+            
+        default:
+            img = UIImage(named: "cloudy-min.png")!
+        }
+        return img
+    }
 }
     
     

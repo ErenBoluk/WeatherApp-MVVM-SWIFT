@@ -21,15 +21,28 @@ extension UIColor {
 enum AppColor {
     case base
     case secondary
-    // Diğer renkleri buraya ekleyebilirsiniz
+    case firstGradient
+    case secondGradient
     
     var color: UIColor {
+        let night = isNightTime()
         switch self {
         case .base:
-            return UIColor(hex: "#303345")
+            return night ? UIColor(hex: "#FFFFFF") : UIColor(hex: "#303345")
         case .secondary:
-            return UIColor(hex: "#9A938C")
-        // Diğer renkler için de durumları ekleyin
+            return night ? UIColor(hex: "#EEEEEE") : UIColor(hex: "#9A938C")
+        case .firstGradient:
+            return night ? UIColor(hex: "#2249AB") : UIColor(hex: "#FEE2C6")
+        case .secondGradient:
+            return night ? UIColor(hex: "#01113A") : UIColor(hex: "#FEBD8B")
         }
+        
     }
+}
+func isNightTime() -> Bool {
+    let calendar = Calendar.current
+    let currentDate = Date()
+    let hour = calendar.component(.hour, from: currentDate)
+    
+    return hour >= 18 || hour < 6 // Eğer saat 18'den büyük veya 6'dan küçükse gece kabul edilir
 }

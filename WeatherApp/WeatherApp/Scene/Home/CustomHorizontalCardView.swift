@@ -18,19 +18,20 @@ class HorizontalCardView: UIView {
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 18, weight: .regular)
-        label.textColor = UIColor(red: 49/255, green: 51/255, blue: 65/255, alpha: 1)
+        label.textColor = AppColor.base.color
         return label
     }()
     
     private let valueLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 18, weight: .regular)
-        label.textColor = UIColor(red: 49/255, green: 51/255, blue: 65/255, alpha: 1)
+        label.textColor = AppColor.base.color
         return label
     }()
     
     init(icon: UIImage, title: String, value: String) {
         super.init(frame: .zero)
+        translatesAutoresizingMaskIntoConstraints = false
         
         backgroundColor = .init(white: 1, alpha: 0.5)
         layer.cornerRadius = 15 
@@ -65,6 +66,12 @@ class HorizontalCardView: UIView {
             
             titleLabel.centerYAnchor.constraint(equalTo: centerYAnchor)
         ])
+    }
+
+    // change title and value
+    func update(title: String, value: String) {
+        titleLabel.text = title
+        valueLabel.text = value
     }
     
     required init?(coder: NSCoder) {
